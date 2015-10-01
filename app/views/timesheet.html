@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <style type="text/css">
+            * {
+                font-family: Arial;
+                box-sizing: border-box;
+                font-size: 12pt;
+            }
+            .timesheet {
+                padding: 5px;
+            }
+            .work.item {
+                border: 1px solid silver;
+                border-radius: 3px;
+                list-style: none;
+                padding: 5px;
+                position: relative;
+            }
+            .work.item .title {
+                width: 100%;
+                text-align: center;
+                font-size: 16pt;
+                font-weight: bold;
+            }
+            .work.item .hours {
+                display: inline-block;
+                width: 50%;
+            }
+            .work.item .update {
+                display: inline-block;
+                width: 30%;
+                right: 0;
+                position: absolute;
+            }
+            .update input {
+                width: 50%;
+            }
+            .drawer.open {
+                border: 1px solid silver;
+            }
+            .drawer.closed {
+                display: none;
+            }
+            .drawer.toggle {
+                width: 100%;
+                margin-top: 10px;
+                background-color: #EEE;
+                border: none;
+            }
+            .primary.button {
+                background-color: #2ECE2E;
+                border: 1px solid #2ECE2E;
+                color: white;
+                border-radius: 3px;
+                margin-left: 3px;
+            }
+            .hours .scheduled {
+                color: lightgray;
+            }
+        </style>
+    </head>
+    <body>
+        <script type="text/javascript">
+        function toggleMore(i) {
+            var closed = document.querySelector('[id="' + i + '"] .drawer.closed');
+            var open = document.querySelector('[id="' + i + '"] .drawer.open');
+            if(closed) {
+                closed.setAttribute('class', 'drawer open');
+            } else if (open) {
+                open.setAttribute('class','drawer closed');
+            }
+        }
+        </script>
+        <div class="content">
+            <h3>{{firstName}}'s Tasks</h3>
+            <ul class="timesheet">
+                {{#items}}
+                <li id="{{_index}}"class="work item">
+                <div class="title">{{title}}</div>
+                <div class="hours"><span class="actual">{{work.actual}}</span>/<span class="allocated">{{work.allocated}}</span>/<span class="scheduled">{{work.scheduled}}</span></div>
+                <div class="update"><input name="hours" type="number"/><button type="button" class="primary button">+</button></div>
+                <button type="button" class="drawer toggle" onclick="toggleMore('{{_index}}')">More Info</button>
+                <div class="drawer closed">
+                    <div class="row">Project: {{project}}</div>
+                    <div class="row">Start: {{startDate}}</div>
+                    <div class="row">End: {{endDate}}</div>
+                    <div class="row">Description: {{description}}</div>
+                </div>
+                </li>
+                {{/items}}
+            </ul>
+        </div>
+    </body>
+</html>

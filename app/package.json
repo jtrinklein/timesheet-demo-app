@@ -1,0 +1,13 @@
+{
+  "name": "timesheetDemo",
+  "start": "node app.js",
+  "dependencies": {
+    "amqplib": "^0.4.0",
+    "body-parser": "^1.14.1",
+    "express": "^4.13.3",
+    "lodash": "^3.10.1",
+    "mongodb": "^2.0.43",
+    "mustache-express": "^1.2.1",
+    "q": "^1.4.1"
+  }
+}

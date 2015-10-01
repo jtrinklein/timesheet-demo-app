@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+    <head></head>
+    <body>
+        <form id="msgForm" name="msgForm" method="POST" action="/messenger"><input name="data" id="data" type="hidden" value=""/><input name="type" id="type" type="hidden" value=""/></form>
+        <script type="text/javascript">
+        function validateMessage(type) {
+            var msg = document.getElementById('msg')
+            try {
+                msg.innerText = '';
+                var userId = document.getElementById('user').value;
+                var title = document.getElementById('title').value;
+                var work = {
+                    actual: parseInt(document.getElementById('actual').value),
+                    approved: parseInt(document.getElementById('approved').value),
+                    scheduled: parseInt(document.getElementById('scheduled').value)
+                };
+                var description = document.getElementById('description').value;
+                var project = document.getElementById('project').value;
+                var startDate = document.getElementById('start').value;
+                var endDate = document.getElementById('end').value;
+                var data = {
+                    userId,
+                    item: {
+                        title,
+                        work,
+                        description,
+                        project,
+                        startDate,
+                        endDate
+                    }
+                };
+                return true;
+            } catch(e) {
+                msg.innerText = e;
+                return false;
+            }
+        }
+        </script>
+        <div>
+            <div><b id="msg"></b></div>
+        <label>Message Type:</label>
+            {{#types}}
+                    <button type="submit" name="submit" form="msgForm" onclick="if(!validateMessage('{{.}}')){return false;}">Create {{.}}</button>
+            {{/types}}
+
+</div>
+<div><label>user: </label><input type="text" id="user" value="dev"/></div>
+<div><label>title: </label><input type="text" id="title" value="Default Title (2)"/></div>
+<div><label>actual: </label><input type="number" id="actual" value="10"/></div>
+<div><label>approved: </label><input type="number" id="approved" value="20"/></div>
+<div><label>scheduled: </label><input type="number" id="scheduled" value="40"/></div>
+<div><label>description: </label><input type="text" id="description" value="Default Description (8)"/></div>
+<div><label>project: </label><input type="text" id="project" value="Default Project (3)"/></div>
+<div><label>start: </label><input type="date" id="start" value="2015-09-22"/></div>
+<div><label>end: </label><input type="date" id="end" value="2015-11-22"/></div>
+
+    </body>
+</html>

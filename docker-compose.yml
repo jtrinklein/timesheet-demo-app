@@ -1,0 +1,17 @@
+app:
+  ports:
+    - "8123:8123"
+  volumes:
+    - ./app:/data
+  links:
+    - mongo
+  image: node
+  dns: 8.8.8.8
+  working_dir: /data
+  entrypoint: /data/launch-app.sh
+
+mongo:
+  image: mongo
+  volumes:
+    - .:/data
+  entrypoint: /data/launch-mongo.sh
