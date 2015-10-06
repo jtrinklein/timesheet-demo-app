@@ -1,14 +1,12 @@
 # Setup
 
-install docker. This is the hard part.
-
 ## Prerequisites
 
 zshell is recommended. The fish shell has been problematic.
 
 1. `cd app; npm install`
 1. Install Virtualbox (tested on 5.0.6)
-1. Install Docker
+1. Install Docker (this is the hard part)
     1. `brew install docker` OR download standalone installer
     1. `sudo chown -R [youruser]:staff ~/.docker`
     1. `docker-machine create --driver virtualbox dev`
