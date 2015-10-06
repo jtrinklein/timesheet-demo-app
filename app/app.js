@@ -19,12 +19,19 @@ function createMQChannel(connection) {
     return Q.ninvoke(connection, 'createChannel');
 }
 function handleTimesheetsMessage(message) {
-    var msg = JSON.parse(message);
-    console.log('handling timesheets message: ' + msg.type);
-    if(msg.type === 'ADD_ITEM') {
-        var userId = msg.userId;
-        var item = msg.item;
-        addItemToUserData(userId, item);
+    try {
+        var dataStr =new Buffer( message.content).toString();
+        console.log('msg handler: ' + dataStr);
+        var msg = JSON.parse(dataStr);
+        console.log('handling timesheets message: ' + msg.type);
+        if(msg.type === 'ADD_ITEM') {
+            var msgData = JSON.parse(msg.data);
+            var userId = msgData.userId;
+            var item = msgData.item;
+            addItemToUserData(userId, item);
+        }
+    } catch (err) {
+        console.error(err);
     }
 }
 var mqChannel;
@@ -98,6 +105,7 @@ function createArrayIndexerForProperties(keys) {
 }
 function addItemToUserData(userId, item) {
     console.log('adding item for ' + userId);
+    console.log('item: ' + util.inspect(item));
     return getUserData(userId).then(function(u){
         u.items.push(item);
         return getCollection()
@@ -146,7 +154,11 @@ app.post('/messenger', function(req,res){
 
     var msg = req.body;
     if(mqChannel) {
-        mqChannel.publish('timesheets', '', new Buffer(JSON.stringify(msg)));
+        // replacer function ensures we dont hit json stringify nest limit
+        var msgString = JSON.stringify(msg, function(k,v){return v;});
+        console.log('sending message:');
+        console.log(msgString);
+        mqChannel.publish('timesheets', '', new Buffer(msgString));
     }
     res.redirect('/messenger');
 });

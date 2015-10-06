@@ -12,7 +12,7 @@
                 var title = document.getElementById('title').value;
                 var work = {
                     actual: parseInt(document.getElementById('actual').value),
-                    approved: parseInt(document.getElementById('approved').value),
+                    allocated: parseInt(document.getElementById('approved').value),
                     scheduled: parseInt(document.getElementById('scheduled').value)
                 };
                 var description = document.getElementById('description').value;
@@ -26,10 +26,11 @@
                         work,
                         description,
                         project,
-                        startDate,
-                        endDate
+                        startDate, endDate
                     }
                 };
+                document.getElementById('data').value = JSON.stringify(data);
+                document.getElementById('type').value = type;
                 return true;
             } catch(e) {
                 msg.innerText = e;
