@@ -2,11 +2,15 @@
   "name": "timesheetDemo",
   "start": "node app.js",
   "dependencies": {
+    "async": "^1.4.2",
+    "eventstore": "^1.5.1",
     "amqplib": "^0.4.0",
     "body-parser": "^1.14.1",
     "express": "^4.13.3",
     "lodash": "^3.10.1",
-    "mongodb": "^2.0.43",
+    "moment": "^2.10.6",
+    "mongodb": "^2.0.44",
+    "node-uuid": "^1.4.3",
     "mustache-express": "^1.2.1",
     "q": "^1.4.1"
   }
